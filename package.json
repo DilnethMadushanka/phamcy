@@ -1,0 +1,15 @@
+{
+  "name": "pharmacy-management-system",
+  "version": "1.0.0",
+  "description": "Pharmacy Management System Fullstack App",
+  "scripts": {
+    "server": "npm --prefix server run dev",
+    "client": "npm --prefix client run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "seed": "npm --prefix server run seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
