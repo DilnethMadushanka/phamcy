@@ -101,7 +101,7 @@ const CartDrawer = () => {
           volume: '1 Unit',
           image_url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80'
         }, 1);
-        toast.success(`📷 Scanned: Added "${matchedSample.name}" ($${matchedSample.price})`);
+        toast.success(`📷 Scanned: Added "${matchedSample.name}" (Rs. ${matchedSample.price})`);
         setBarcodeInput('');
       } else {
         // Create dynamic product for custom barcodes

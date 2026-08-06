@@ -123,7 +123,7 @@ const Navbar = () => {
         toast.success(`📷 Added "${foundProduct.product_name || foundProduct.name}" to cart!`);
       } else if (sampleMatch) {
         addToCart({ id: sampleMatch.code, product_name: sampleMatch.name, selling_price: sampleMatch.price, volume: '1 Unit', image_url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80' }, 1);
-        toast.success(`📷 Scanned: Added "${sampleMatch.name}" ($${sampleMatch.price})`);
+        toast.success(`📷 Scanned: Added "${sampleMatch.name}" (Rs. ${sampleMatch.price})`);
       } else {
         addToCart({ id: `barcode-${targetCode}`, product_name: `Scanned Item (${targetCode})`, selling_price: 15.00, volume: 'Scanned Item', image_url: 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80' }, 1);
         toast.success(`📷 Barcode "${targetCode}" added to cart!`);
