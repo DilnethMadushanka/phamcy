@@ -93,7 +93,7 @@ const Dashboard = () => {
           <div>
             <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Revenue</p>
             <h2 className="text-2xl font-black text-slate-900 mt-1">
-              ${parseFloat(metrics?.totalRevenue || 0).toFixed(2)}
+              Rs. {parseFloat(metrics?.totalRevenue || 0).toFixed(2)}
             </h2>
             <span className="text-[11px] text-blue-600 font-bold flex items-center mt-1">
               <TrendingUp className="w-3.5 h-3.5 mr-1 text-blue-600" /> Gross Lifetime Volume

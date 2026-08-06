@@ -57,7 +57,7 @@ const PurchaseOrderModal = ({ ordersData, data, onClose }) => {
                   </div>
                   <div className="sm:text-right">
                     <span className="text-[11px] font-extrabold text-slate-400 uppercase tracking-wider">Est. Order Total</span>
-                    <p className="text-xl font-black text-blue-700">${(order.total_estimated_cost || 0).toFixed(2)}</p>
+                    <p className="text-xl font-black text-blue-700">Rs. {(order.total_estimated_cost || 0).toFixed(2)}</p>
                   </div>
                 </div>
 
@@ -87,8 +87,8 @@ const PurchaseOrderModal = ({ ordersData, data, onClose }) => {
                           <td className="py-2.5 text-center font-black text-blue-700 bg-blue-100/70 px-2 rounded-lg">
                             +{item.suggested_reorder_qty}
                           </td>
-                          <td className="py-2.5 text-right text-slate-600">${parseFloat(item.unit_purchase_price || 0).toFixed(2)}</td>
-                          <td className="py-2.5 text-right font-black text-slate-900 px-1">${(item.estimated_subtotal || 0).toFixed(2)}</td>
+                          <td className="py-2.5 text-right text-slate-600">Rs. {parseFloat(item.unit_purchase_price || 0).toFixed(2)}</td>
+                          <td className="py-2.5 text-right font-black text-slate-900 px-1">Rs. {(item.estimated_subtotal || 0).toFixed(2)}</td>
                         </tr>
                       ))}
                     </tbody>

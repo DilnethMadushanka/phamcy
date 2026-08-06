@@ -202,7 +202,7 @@ const OrdersAdmin = () => {
 
                   <div className="md:text-right">
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Total Bill &amp; Payment</span>
-                    <p className="text-lg font-black text-blue-900">${parseFloat(order.total_amount || 0).toFixed(2)}</p>
+                    <p className="text-lg font-black text-blue-900">Rs. {parseFloat(order.total_amount || 0).toFixed(2)}</p>
                     <p className="text-[11px] text-blue-600 font-bold">{order.payment_method || 'Cash on Delivery'}</p>
                   </div>
                 </div>
@@ -246,7 +246,7 @@ const OrdersAdmin = () => {
                       {order.items.map((it, idx) => (
                         <div key={idx} className="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-200">
                           <span className="font-bold text-slate-900">{it.product?.product_name || `Product #${it.product_id}`}</span>
-                          <span className="font-semibold text-blue-600">{it.quantity} × ${parseFloat(it.price || 0).toFixed(2)}</span>
+                          <span className="font-semibold text-blue-600">{it.quantity} × Rs. {parseFloat(it.price || 0).toFixed(2)}</span>
                         </div>
                       ))}
                     </div>

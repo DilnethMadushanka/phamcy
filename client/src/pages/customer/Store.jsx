@@ -119,7 +119,7 @@ const ProductDetailModal = ({ product, allProducts = [], onClose, onSelectProduc
             </div>
 
             <div className="text-2xl font-black text-black">
-              ${Number(product.selling_price || 23.95).toFixed(2)}
+              Rs. {Number(product.selling_price || 23.95).toFixed(2)}
             </div>
 
             <div className="bg-slate-50 p-4 rounded-xl space-y-2 text-xs">
@@ -167,7 +167,7 @@ const ProductDetailModal = ({ product, allProducts = [], onClose, onSelectProduc
                 onClick={handleAdd}
                 className="flex-1 py-3 bg-black hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider rounded-full flex items-center justify-center gap-2 cursor-pointer shadow-md"
               >
-                <ShoppingBag className="w-4 h-4" /> Add to Cart — ${(Number(product.selling_price || 23.95) * qty).toFixed(2)}
+                <ShoppingBag className="w-4 h-4" /> Add to Cart — Rs. {(Number(product.selling_price || 23.95) * qty).toFixed(2)}
               </button>
             </div>
           </div>
@@ -193,7 +193,7 @@ const ProductDetailModal = ({ product, allProducts = [], onClose, onSelectProduc
                   />
                   <div className="w-full">
                     <p className="text-[10px] font-extrabold text-black leading-snug truncate">{rp.product_name || rp.name}</p>
-                    <p className="text-[10px] font-black text-rose-600">${Number(rp.selling_price || 0).toFixed(2)}</p>
+                    <p className="text-[10px] font-black text-rose-600">Rs. {Number(rp.selling_price || 0).toFixed(2)}</p>
                   </div>
                 </button>
               ))}
@@ -924,7 +924,7 @@ const Store = () => {
                     <p className="text-[11px] text-slate-400 font-semibold">{prod.volume || '1 Unit'}</p>
 
                     <div className="flex items-center justify-between pt-1">
-                      <p className="text-sm font-black text-black">${Number(prod.selling_price || prod.price || 19.50).toFixed(2)}</p>
+                      <p className="text-sm font-black text-black">Rs. {Number(prod.selling_price || prod.price || 19.50).toFixed(2)}</p>
                       <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
                         isOutOfStock
                           ? 'text-slate-500 bg-slate-50 border-slate-200'
@@ -968,7 +968,7 @@ const Store = () => {
                 />
                 <div className="min-w-0">
                   <p className="text-xs font-extrabold text-black truncate">{prod.product_name || prod.name}</p>
-                  <p className="text-[10px] text-slate-400 font-semibold">${Number(prod.selling_price || 0).toFixed(2)}</p>
+                  <p className="text-[10px] text-slate-400 font-semibold">Rs. {Number(prod.selling_price || 0).toFixed(2)}</p>
                 </div>
               </div>
             ))}

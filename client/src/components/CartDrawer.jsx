@@ -262,7 +262,7 @@ const CartDrawer = () => {
                     <div className="flex-1 min-w-0">
                       <h4 className="text-xs font-extrabold text-black truncate">{item.product_name}</h4>
                       <p className="text-[10px] text-slate-400 font-semibold">{item.volume || '1 Unit'}</p>
-                      <p className="text-xs font-black text-black mt-1">${(item.selling_price * item.quantity).toFixed(2)}</p>
+                      <p className="text-xs font-black text-black mt-1">Rs. {(item.selling_price * item.quantity).toFixed(2)}</p>
                     </div>
 
                     <div className="flex items-center space-x-1.5 bg-white border border-slate-200 rounded-lg p-1">
@@ -299,7 +299,7 @@ const CartDrawer = () => {
                 {/* Total Summary */}
                 <div className="flex items-center justify-between border-b border-slate-200 pb-3">
                   <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Subtotal Amount</span>
-                  <span className="text-lg font-black text-black">${cartTotal.toFixed(2)}</span>
+                  <span className="text-lg font-black text-black">Rs. {cartTotal.toFixed(2)}</span>
                 </div>
 
                 {/* Delivery Address Field */}
@@ -437,12 +437,12 @@ const CartDrawer = () => {
                 <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 space-y-1.5">
                   <div className="flex justify-between text-xs font-semibold text-slate-500">
                     <span>Subtotal</span>
-                    <span>${cartTotal.toFixed(2)}</span>
+                    <span>Rs. {cartTotal.toFixed(2)}</span>
                   </div>
                   {couponDiscount > 0 && (
                     <div className="flex justify-between text-xs font-bold text-emerald-600">
                       <span>Discount ({couponDiscount}%)</span>
-                      <span>-${(cartTotal * couponDiscount / 100).toFixed(2)}</span>
+                      <span>-Rs. {(cartTotal * couponDiscount / 100).toFixed(2)}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-xs font-semibold text-slate-500">
@@ -451,7 +451,7 @@ const CartDrawer = () => {
                   </div>
                   <div className="border-t border-slate-200 pt-1.5 flex justify-between text-sm font-black text-black">
                     <span>Total</span>
-                    <span>${(cartTotal * (1 - couponDiscount / 100)).toFixed(2)}</span>
+                    <span>Rs. {(cartTotal * (1 - couponDiscount / 100)).toFixed(2)}</span>
                   </div>
                 </div>
 
@@ -465,7 +465,7 @@ const CartDrawer = () => {
                     <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                   ) : (
                     <>
-                      <span>Complete Checkout — ${(cartTotal * (1 - couponDiscount / 100)).toFixed(2)}</span>
+                      <span>Complete Checkout — Rs. {(cartTotal * (1 - couponDiscount / 100)).toFixed(2)}</span>
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}

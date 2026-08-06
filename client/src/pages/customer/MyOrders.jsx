@@ -65,8 +65,8 @@ const MyOrders = () => {
           <tr>
             <td style="padding:10px; border-bottom:1px solid #eee; font-weight:bold;">${it.product?.product_name || `Product #${it.product_id}`}</td>
             <td style="padding:10px; border-bottom:1px solid #eee; text-align:center;">${it.quantity}</td>
-            <td style="padding:10px; border-bottom:1px solid #eee; text-align:right;">$${parseFloat(it.price || 0).toFixed(2)}</td>
-            <td style="padding:10px; border-bottom:1px solid #eee; text-align:right; font-weight:bold;">$${(parseFloat(it.price || 0) * it.quantity).toFixed(2)}</td>
+            <td style="padding:10px; border-bottom:1px solid #eee; text-align:right;">Rs. ${parseFloat(it.price || 0).toFixed(2)}</td>
+            <td style="padding:10px; border-bottom:1px solid #eee; text-align:right; font-weight:bold;">Rs. ${(parseFloat(it.price || 0) * it.quantity).toFixed(2)}</td>
           </tr>
         `).join('')
       : `<tr><td colspan="4" style="padding:16px; text-align:center; font-weight:bold; color:#475569;">Digital Doctor Prescription Order</td></tr>`;
@@ -127,7 +127,7 @@ const MyOrders = () => {
           </table>
 
           <div class="total">
-            TOTAL PAID: $${parseFloat(order.total_amount || 0).toFixed(2)}
+            TOTAL PAID: Rs. ${parseFloat(order.total_amount || 0).toFixed(2)}
           </div>
 
           <div class="stamp">
@@ -254,7 +254,7 @@ const MyOrders = () => {
 
                     <div className="text-right">
                       <span className="text-xs text-slate-400 block font-medium">Total Amount</span>
-                      <span className="text-xl font-black text-black">${parseFloat(order.total_amount || 0).toFixed(2)}</span>
+                      <span className="text-xl font-black text-black">Rs. {parseFloat(order.total_amount || 0).toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
@@ -385,7 +385,7 @@ const MyOrders = () => {
                             <span className="font-bold text-black">{item.product?.product_name || `Product #${item.product_id}`}</span>
                             <span className="text-slate-400 ml-2 font-medium">Qty: {item.quantity}</span>
                           </div>
-                          <span className="font-black text-black">${(parseFloat(item.price || 0) * item.quantity).toFixed(2)}</span>
+                          <span className="font-black text-black">Rs. {(parseFloat(item.price || 0) * item.quantity).toFixed(2)}</span>
                         </div>
                       ))}
                     </div>

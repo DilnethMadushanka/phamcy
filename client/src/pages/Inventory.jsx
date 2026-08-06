@@ -304,8 +304,8 @@ const Inventory = () => {
                         </div>
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <div className="font-black text-blue-900">${parseFloat(prod.selling_price).toFixed(2)}</div>
-                        <div className="text-[10px] text-slate-400">Buy: ${parseFloat(prod.purchase_price || 0).toFixed(2)}</div>
+                        <div className="font-black text-blue-900">Rs. {parseFloat(prod.selling_price).toFixed(2)}</div>
+                        <div className="text-[10px] text-slate-400">Buy: Rs. {parseFloat(prod.purchase_price || 0).toFixed(2)}</div>
                       </td>
                       <td className="px-6 py-4 text-center">
                         <span className={`px-3 py-1 rounded-full text-[10px] font-extrabold ${

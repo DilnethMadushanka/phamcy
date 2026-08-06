@@ -408,7 +408,7 @@ const Navbar = () => {
                             <p className="text-[10px] text-slate-400 font-semibold">{prod.category?.category_name || 'Pharmacy'}</p>
                           </div>
                           <span className="text-xs font-black text-black shrink-0">
-                            ${Number(prod.selling_price || prod.price || 0).toFixed(2)}
+                            Rs. {Number(prod.selling_price || prod.price || 0).toFixed(2)}
                           </span>
                         </button>
                       ))}

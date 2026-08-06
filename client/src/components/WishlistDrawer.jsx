@@ -110,7 +110,7 @@ const WishlistDrawer = () => {
                         {item.category?.category_name || 'Wellness'}
                       </span>
                       <h4 className="text-xs font-extrabold text-black truncate">{item.product_name}</h4>
-                      <p className="text-xs font-black text-black mt-1">${Number(item.selling_price || 19.50).toFixed(2)}</p>
+                      <p className="text-xs font-black text-black mt-1">Rs. {Number(item.selling_price || 19.50).toFixed(2)}</p>
                     </div>
 
                     <div className="flex flex-col items-end gap-2">

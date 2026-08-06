@@ -129,7 +129,7 @@ const Reports = () => {
           <div>
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Gross Lifetime Revenue</p>
             <h2 className="text-2xl font-black text-slate-900 mt-1">
-              ${parseFloat(revenueData?.summary?.totalRevenue || 0).toFixed(2)}
+              Rs. {parseFloat(revenueData?.summary?.totalRevenue || 0).toFixed(2)}
             </h2>
             <p className="text-[11px] text-blue-600 font-bold mt-1">
               {revenueData?.summary?.totalSalesCount || 0} Total Orders Processed
@@ -144,7 +144,7 @@ const Reports = () => {
           <div>
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Expired Batch Risk</p>
             <h2 className="text-2xl font-black text-rose-600 mt-1">
-              ${parseFloat(expiryData?.summary?.totalExpiredValue || 0).toFixed(2)}
+              Rs. {parseFloat(expiryData?.summary?.totalExpiredValue || 0).toFixed(2)}
             </h2>
             <p className="text-[11px] text-rose-700 font-semibold mt-1">
               {expiryData?.summary?.expiredCount || 0} Expired Batches
@@ -159,7 +159,7 @@ const Reports = () => {
           <div>
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Near-Expiry Exposure</p>
             <h2 className="text-2xl font-black text-amber-600 mt-1">
-              ${parseFloat(expiryData?.summary?.totalNearExpiryValue || 0).toFixed(2)}
+              Rs. {parseFloat(expiryData?.summary?.totalNearExpiryValue || 0).toFixed(2)}
             </h2>
             <p className="text-[11px] text-amber-700 font-semibold mt-1">
               {expiryData?.summary?.nearExpiryCount || 0} Batches (&lt;90 Days)

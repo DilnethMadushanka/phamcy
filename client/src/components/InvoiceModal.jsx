@@ -78,8 +78,8 @@ const InvoiceModal = ({ sale, onClose }) => {
                     )}
                   </td>
                   <td className="py-2 text-center font-semibold">{item.quantity}</td>
-                  <td className="py-2 text-right">${parseFloat(item.unit_price).toFixed(2)}</td>
-                  <td className="py-2 text-right font-semibold text-slate-900">${parseFloat(item.subtotal).toFixed(2)}</td>
+                  <td className="py-2 text-right">Rs. {parseFloat(item.unit_price).toFixed(2)}</td>
+                  <td className="py-2 text-right font-semibold text-slate-900">Rs. {parseFloat(item.subtotal).toFixed(2)}</td>
                 </tr>
               ))}
             </tbody>
@@ -89,17 +89,17 @@ const InvoiceModal = ({ sale, onClose }) => {
           <div className="border-t border-dashed border-slate-300 pt-3 space-y-1.5 text-xs text-slate-600">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span>${(parseFloat(sale.total_amount) + parseFloat(sale.discount || 0)).toFixed(2)}</span>
+              <span>Rs. {(parseFloat(sale.total_amount) + parseFloat(sale.discount || 0)).toFixed(2)}</span>
             </div>
             {parseFloat(sale.discount) > 0 && (
               <div className="flex justify-between text-emerald-600">
                 <span>Discount Applied</span>
-                <span>-${parseFloat(sale.discount).toFixed(2)}</span>
+                <span>-Rs. {parseFloat(sale.discount).toFixed(2)}</span>
               </div>
             )}
             <div className="flex justify-between text-base font-bold text-slate-900 pt-2 border-t border-slate-200">
               <span>Total Paid</span>
-              <span className="text-pharmacy-600">${parseFloat(sale.total_amount).toFixed(2)}</span>
+              <span className="text-pharmacy-600">Rs. {parseFloat(sale.total_amount).toFixed(2)}</span>
             </div>
           </div>
 

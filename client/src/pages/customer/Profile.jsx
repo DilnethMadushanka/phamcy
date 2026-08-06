@@ -265,8 +265,8 @@ const Profile = () => {
         <tr>
           <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.product?.product_name || 'Prescription Medication'}</td>
           <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
-          <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">$${Number(item.price || 24.50).toFixed(2)}</td>
-          <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">$${(Number(item.price || 24.50) * item.quantity).toFixed(2)}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">Rs. ${Number(item.price || 24.50).toFixed(2)}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">Rs. ${(Number(item.price || 24.50) * item.quantity).toFixed(2)}</td>
         </tr>
       `).join('')
       : `<tr><td colspan="4" style="padding: 10px; border-bottom: 1px solid #eee;">Rx Prescription Order (Verified by Pharmacist)</td></tr>`;
@@ -317,7 +317,7 @@ const Profile = () => {
           <tbody>${orderItemsHTML}</tbody>
         </table>
 
-        <div class="total">Total Paid: $${Number(order.total_amount || 25.00).toFixed(2)}</div>
+        <div class="total">Total Paid: Rs. ${Number(order.total_amount || 25.00).toFixed(2)}</div>
 
         <div class="stamp">
           ✔ <strong>VERIFIED &amp; DISPATCHED BY LICENSED PHARMACIST</strong><br/>
@@ -389,10 +389,10 @@ const Profile = () => {
           <div className="w-12 h-12 rounded-full bg-amber-100 border border-amber-300 flex items-center justify-center text-xl shrink-0">🪙</div>
           <div className="flex-1">
             <p className="text-sm font-extrabold text-black">You have <span className="text-amber-600">{loyaltyPoints} Fouad Reward Points!</span></p>
-            <p className="text-[10px] font-semibold text-slate-500 mt-0.5">Earned from completed orders. Redeem at checkout for discounts (100 pts = $1 off).</p>
+            <p className="text-[10px] font-semibold text-slate-500 mt-0.5">Earned from completed orders. Redeem at checkout for discounts (100 pts = Rs. 1 off).</p>
           </div>
           <div className="text-right shrink-0">
-            <span className="text-xs font-black text-amber-600 bg-amber-100 border border-amber-200 px-3 py-1 rounded-full">${(loyaltyPoints / 100).toFixed(2)} Value</span>
+            <span className="text-xs font-black text-amber-600 bg-amber-100 border border-amber-200 px-3 py-1 rounded-full">Rs. {(loyaltyPoints / 100).toFixed(2)} Value</span>
           </div>
         </section>
       )}
@@ -484,7 +484,7 @@ const Profile = () => {
                         <div className="flex items-center gap-2">
                           <span className="text-base font-black text-black">Order #{order.id}</span>
                           <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                            ${Number(order.total_amount || 25.00).toFixed(2)}
+                            Rs. {Number(order.total_amount || 25.00).toFixed(2)}
                           </span>
                         </div>
                         <p className="text-[11px] text-slate-400 font-semibold mt-0.5">

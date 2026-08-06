@@ -323,7 +323,7 @@ const POS = () => {
                       <div className="mt-2 pt-2 border-t border-slate-100 flex items-center justify-between">
                         <div>
                           <span className="text-xs font-black text-blue-900">
-                            ${parseFloat(prod.selling_price).toFixed(2)}
+                            Rs. {parseFloat(prod.selling_price).toFixed(2)}
                           </span>
                           <span className="block text-[9px] text-slate-400 font-normal">
                             Batch: {prod.batch_number || 'REG'}
@@ -387,7 +387,7 @@ const POS = () => {
                 <div key={product.id} className="pt-3 first:pt-0 flex items-center justify-between">
                   <div className="flex-1 pr-2">
                     <h4 className="font-bold text-slate-900 text-xs leading-snug">{product.product_name}</h4>
-                    <p className="text-[11px] font-extrabold text-blue-600">${parseFloat(product.selling_price).toFixed(2)} each</p>
+                    <p className="text-[11px] font-extrabold text-blue-600">Rs. {parseFloat(product.selling_price).toFixed(2)} each</p>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="flex items-center bg-blue-50 rounded-full p-0.5 border border-blue-100">
@@ -413,12 +413,12 @@ const POS = () => {
             <div className="space-y-1.5 text-xs text-slate-700 font-medium">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span className="font-bold">${subtotal.toFixed(2)}</span>
+                <span className="font-bold">Rs. {subtotal.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="flex items-center space-x-1">
                   <Tag className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Discount ($)</span>
+                  <span>Discount (Rs.)</span>
                 </span>
                 <input
                   type="number"
@@ -431,7 +431,7 @@ const POS = () => {
               </div>
               <div className="flex justify-between text-sm font-black text-slate-900 pt-2 border-t border-blue-100">
                 <span>Total Due</span>
-                <span className="text-blue-700 font-black">${grandTotal.toFixed(2)}</span>
+                <span className="text-blue-700 font-black">Rs. {grandTotal.toFixed(2)}</span>
               </div>
             </div>
 
