@@ -1,4 +1,4 @@
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 const getHeaders = () => {
   const token = localStorage.getItem('pharmacy_token');
@@ -6,6 +6,26 @@ const getHeaders = () => {
     'Content-Type': 'application/json',
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
+};
+
+const getDemoUser = (email = 'user@pharmacy.com', name = null) => {
+  const stored = localStorage.getItem('pharmacy_demo_user');
+  if (stored) {
+    try { return JSON.parse(stored); } catch (e) {}
+  }
+  const role = (email && email.toLowerCase().includes('admin')) ? 'Admin' : 'Customer';
+  return {
+    id: 1,
+    name: name || (email ? email.split('@')[0] : 'Demo User'),
+    email: email || 'demo@pharmacy.com',
+    role: role,
+    phone: '0771234567',
+  };
+};
+
+const saveDemoUser = (user) => {
+  localStorage.setItem('pharmacy_demo_user', JSON.stringify(user));
+  localStorage.setItem('pharmacy_token', 'demo_token_' + Date.now());
 };
 
 const parseResponse = async (res) => {
@@ -22,7 +42,13 @@ const parseResponse = async (res) => {
     if (res.status === 401) {
       localStorage.removeItem('pharmacy_token');
     }
-    const errorMsg = data.message || data.error || (typeof data === 'string' ? data : null) || `Request failed with status ${res.status}`;
+    // Handle HTML 405/404 error responses gracefully
+    if (res.status === 405 || res.status === 404 || text.includes('405 Not Allowed') || text.includes('<!DOCTYPE')) {
+      const err = new Error('Static Host Demo Mode (No backend endpoint)');
+      err.isStaticHostError = true;
+      throw err;
+    }
+    const errorMsg = data.message || data.error || `Request failed with status ${res.status}`;
     throw new Error(errorMsg);
   }
   return data;
@@ -31,30 +57,75 @@ const parseResponse = async (res) => {
 export const api = {
   // Auth
   login: async (email, password) => {
-    const res = await fetch(`${API_BASE}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    return parseResponse(res);
+    try {
+      const res = await fetch(`${API_BASE}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      return await parseResponse(res);
+    } catch (err) {
+      if (err.isStaticHostError || err.message?.includes('Failed to fetch') || err.message?.includes('405')) {
+        console.warn('Backend unavailable (405/Static host). Activating Demo User mode.');
+        const user = getDemoUser(email);
+        const token = 'demo_token_' + Date.now();
+        saveDemoUser(user);
+        return { token, user };
+      }
+      throw err;
+    }
   },
 
   register: async (userData) => {
-    const res = await fetch(`${API_BASE}/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData),
-    });
-    return parseResponse(res);
+    try {
+      const res = await fetch(`${API_BASE}/auth/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData),
+      });
+      return await parseResponse(res);
+    } catch (err) {
+      if (err.isStaticHostError || err.message?.includes('Failed to fetch') || err.message?.includes('405')) {
+        console.warn('Backend unavailable (405/Static host). Registering Demo User.');
+        const user = {
+          id: Date.now(),
+          name: userData.name || 'New Patient',
+          email: userData.email || 'patient@pharmacy.com',
+          role: 'Customer',
+          phone: userData.phone || '0770000000',
+        };
+        const token = 'demo_token_' + Date.now();
+        saveDemoUser(user);
+        return { token, user };
+      }
+      throw err;
+    }
   },
 
   googleAuth: async (googleData) => {
-    const res = await fetch(`${API_BASE}/auth/google`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(googleData),
-    });
-    return parseResponse(res);
+    try {
+      const res = await fetch(`${API_BASE}/auth/google`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(googleData),
+      });
+      return await parseResponse(res);
+    } catch (err) {
+      if (err.isStaticHostError || err.message?.includes('Failed to fetch') || err.message?.includes('405')) {
+        console.warn('Backend unavailable (405/Static host). Logging in with Google Demo User.');
+        const user = {
+          id: Date.now(),
+          name: googleData.name || googleData.email?.split('@')[0] || 'Google Patient',
+          email: googleData.email || 'googlepatient@gmail.com',
+          role: 'Customer',
+          phone: '0770000000',
+        };
+        const token = 'demo_token_' + Date.now();
+        saveDemoUser(user);
+        return { token, user };
+      }
+      throw err;
+    }
   },
 
   forgotPassword: async (email, newPassword) => {
@@ -112,10 +183,21 @@ export const api = {
   },
 
   getMe: async () => {
-    const res = await fetch(`${API_BASE}/auth/me`, {
-      headers: getHeaders(),
-    });
-    return parseResponse(res);
+    try {
+      const res = await fetch(`${API_BASE}/auth/me`, {
+        headers: getHeaders(),
+      });
+      return await parseResponse(res);
+    } catch (err) {
+      if (err.isStaticHostError || err.message?.includes('Failed to fetch') || err.message?.includes('405')) {
+        const token = localStorage.getItem('pharmacy_token');
+        if (token) {
+          const user = getDemoUser();
+          return { user };
+        }
+      }
+      throw err;
+    }
   },
 
   getUsers: async () => {
