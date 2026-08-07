@@ -207,10 +207,11 @@ const Navbar = () => {
             {user && (
               <button
                 onClick={() => navigate(user.role === 'Customer' ? '/profile' : '/dashboard')}
-                className="hidden sm:flex items-center text-[10px] font-extrabold text-blue-700 bg-white/80 border border-blue-200 px-3 py-1 rounded-full uppercase tracking-wider shadow-2xs hover:bg-blue-600 hover:text-white transition-all cursor-pointer"
+                className="flex items-center text-[10px] sm:text-xs font-black text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 border border-blue-400/40 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full uppercase tracking-wider shadow-sm hover:scale-105 transition-all cursor-pointer"
+                title="Go to Portal"
               >
-                <ArrowRightLeft className="w-3.5 h-3.5 mr-1" />
-                <span>{user.role === 'Customer' ? 'My Profile' : `${user.role} Portal`}</span>
+                <ArrowRightLeft className="w-3 h-3 sm:w-3.5 sm:h-3.5 mr-1" />
+                <span>{user.role === 'Customer' ? 'Profile' : `${user.role} Portal`}</span>
               </button>
             )}
           </div>

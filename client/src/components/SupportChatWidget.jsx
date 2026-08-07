@@ -108,7 +108,7 @@ export default function SupportChatWidget() {
   }, []);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans">
+    <div className="fixed bottom-20 sm:bottom-6 right-4 sm:right-6 z-40 font-sans">
       {/* ── Widget Trigger Button ── */}
       <AnimatePresence>
         {!isOpen && (
@@ -125,10 +125,10 @@ export default function SupportChatWidget() {
               }
               setIsOpen(true);
             }}
-            className="bubble-glass-card p-4 rounded-full shadow-2xl flex items-center justify-center text-blue-700 hover:text-blue-800 cursor-pointer relative group border-2 border-white hover:scale-110 active:scale-95 transition-all bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700"
+            className="bubble-glass-card p-3.5 sm:p-4 rounded-full shadow-2xl flex items-center justify-center text-blue-700 hover:text-blue-800 cursor-pointer relative group border-2 border-white hover:scale-110 active:scale-95 transition-all bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700"
             title="Live Pharmacist Support"
           >
-            <MessageCircle className="w-7 h-7 text-white animate-pulse" />
+            <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 text-white animate-pulse" />
             <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white" />
             {unreadCount > 0 && (
               <span className="absolute -top-2 -left-2 bg-rose-600 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-md animate-bounce">
@@ -147,7 +147,7 @@ export default function SupportChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 220 }}
-            className="w-[360px] sm:w-[400px] h-[520px] bubble-glass-card rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-white/90"
+            className="w-[calc(100vw-32px)] sm:w-[400px] h-[480px] sm:h-[520px] max-h-[75vh] sm:max-h-[520px] bubble-glass-card rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-white/90"
           >
             {/* Window Header */}
             <div className="p-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white flex items-center justify-between shadow-xs">
