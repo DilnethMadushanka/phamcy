@@ -132,6 +132,44 @@
   background: #3B82F6;
 }
 
+/* Mobile & Tablet Responsive Utilities */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Touch manipulation & inertia scrolling */
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Safe area for notched devices (iPhone X/11/12/13/14/15/16) */
+.safe-area-pb {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+.safe-area-pt {
+  padding-top: max(0.75rem, env(safe-area-inset-top));
+}
+
+/* Responsive table container */
+.responsive-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 1rem;
+}
+
+@media (max-width: 640px) {
+  .mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
 @media print {
   body * {
     visibility: hidden;
@@ -146,3 +184,4 @@
     width: 100%;
   }
 }
+

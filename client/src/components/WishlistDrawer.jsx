@@ -37,13 +37,13 @@ const WishlistDrawer = () => {
           className="absolute inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"
         />
 
-        <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
+        <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
           <motion.div
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between"
+            className="w-screen max-w-full sm:max-w-md bg-white shadow-2xl flex flex-col justify-between"
           >
             {/* Header */}
             <div className="p-5 border-b border-blue-100 flex items-center justify-between bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-950 text-white">

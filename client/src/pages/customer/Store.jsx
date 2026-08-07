@@ -845,7 +845,7 @@ const Store = () => {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
             {filteredProducts.map((prod) => {
               const pId = prod.id || prod.product_id;
               const isFav = isInWishlist(pId);
@@ -857,29 +857,29 @@ const Store = () => {
                 <div
                   key={pId}
                   onClick={() => { setSelectedProduct(prod); trackRecentlyViewed(prod); }}
-                  className="bubble-glass-card p-4 flex flex-col justify-between cursor-pointer relative group overflow-hidden"
+                  className="bubble-glass-card p-3 sm:p-4 rounded-2xl sm:rounded-3xl flex flex-col justify-between cursor-pointer relative group overflow-hidden"
                 >
                   {/* Low Stock / Out of Stock Badge */}
                   {isOutOfStock && (
-                    <span className="absolute top-3 left-3 bg-slate-900 text-white text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider z-10 shadow-xs">
+                    <span className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-slate-900 text-white text-[8px] sm:text-[9px] font-extrabold px-2 sm:px-2.5 py-0.5 rounded-full uppercase tracking-wider z-10 shadow-xs">
                       Out of Stock
                     </span>
                   )}
                   {isLowStock && !isOutOfStock && (
-                    <span className="absolute top-3 left-3 bg-amber-500 text-white text-[9px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider z-10 animate-pulse shadow-xs">
-                      Only {stockQty} left!
+                    <span className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-amber-500 text-white text-[8px] sm:text-[9px] font-extrabold px-2 sm:px-2.5 py-0.5 rounded-full uppercase tracking-wider z-10 animate-pulse shadow-xs">
+                      {stockQty} left!
                     </span>
                   )}
 
                   {/* Top Right Controls */}
-                  <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10">
+                  <div className="absolute top-2 sm:top-3 right-2 sm:right-3 flex items-center gap-1 sm:gap-1.5 z-10">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
                         if (!requireAuth()) return;
                         toggleWishlist(prod);
                       }}
-                      className="text-slate-500 hover:text-blue-600 bg-white/90 backdrop-blur-md shadow-md hover:bg-blue-50 p-2 rounded-full border border-white transition-all cursor-pointer hover:scale-110 active:scale-95"
+                      className="text-slate-500 hover:text-blue-600 bg-white/90 backdrop-blur-md shadow-md hover:bg-blue-50 p-1.5 sm:p-2 rounded-full border border-white transition-all cursor-pointer hover:scale-110 active:scale-95"
                       title={isFav ? 'Remove from Wishlist' : 'Save to Wishlist'}
                     >
                       <Heart className={`w-3.5 h-3.5 ${isFav ? 'text-blue-600 fill-blue-500' : ''}`} />
@@ -891,14 +891,14 @@ const Store = () => {
                         if (!requireAuth()) return;
                         addToCart(prod);
                       }}
-                      className="text-slate-600 hover:text-blue-600 bg-white/90 backdrop-blur-md shadow-md hover:bg-blue-50 p-2 rounded-full border border-white transition-all cursor-pointer hover:scale-110 active:scale-95"
+                      className="text-slate-600 hover:text-blue-600 bg-white/90 backdrop-blur-md shadow-md hover:bg-blue-50 p-1.5 sm:p-2 rounded-full border border-white transition-all cursor-pointer hover:scale-110 active:scale-95"
                       title="Add to Cart"
                     >
                       <Plus className="w-3.5 h-3.5" />
                     </button>
                   </div>
 
-                  <div className="h-36 w-full bg-gradient-to-b from-white/90 to-blue-50/60 backdrop-blur-md rounded-2xl flex items-center justify-center p-3 mb-3 group-hover:scale-105 transition-transform border border-white/90 shadow-inner">
+                  <div className="h-28 sm:h-36 w-full bg-gradient-to-b from-white/90 to-blue-50/60 backdrop-blur-md rounded-xl sm:rounded-2xl flex items-center justify-center p-2 sm:p-3 mb-2 sm:mb-3 group-hover:scale-105 transition-transform border border-white/90 shadow-inner">
                     <img
                       src={prod.image_url || 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=600&q=80'}
                       onError={handleImageError}
@@ -907,13 +907,13 @@ const Store = () => {
                     />
                   </div>
 
-                  <div className="space-y-1.5">
+                  <div className="space-y-1 sm:space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">
+                      <span className="text-[9px] sm:text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block truncate max-w-[70%]">
                         {prod.category?.category_name || 'Wellness'}
                       </span>
-                      <span className="text-[10px] font-bold text-amber-500 flex items-center gap-0.5">
-                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                      <span className="text-[9px] sm:text-[10px] font-bold text-amber-500 flex items-center gap-0.5">
+                        <Star className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-amber-400 text-amber-400" />
                         4.9
                       </span>
                     </div>
@@ -921,18 +921,18 @@ const Store = () => {
                     <h4 className="font-extrabold text-xs text-black leading-tight truncate">
                       {prod.product_name || prod.name}
                     </h4>
-                    <p className="text-[11px] text-slate-400 font-semibold">{prod.volume || '1 Unit'}</p>
+                    <p className="text-[10px] sm:text-[11px] text-slate-400 font-semibold">{prod.volume || '1 Unit'}</p>
 
                     <div className="flex items-center justify-between pt-1">
-                      <p className="text-sm font-black text-black">Rs. {Number(prod.selling_price || prod.price || 19.50).toFixed(2)}</p>
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
+                      <p className="text-xs sm:text-sm font-black text-black">Rs. {Number(prod.selling_price || prod.price || 19.50).toFixed(2)}</p>
+                      <span className={`text-[8px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full border ${
                         isOutOfStock
                           ? 'text-slate-500 bg-slate-50 border-slate-200'
                           : isLowStock
                             ? 'text-amber-700 bg-amber-50 border-amber-200'
                             : 'text-emerald-700 bg-emerald-50 border-emerald-200'
                       }`}>
-                        {isOutOfStock ? 'Out of Stock' : isLowStock ? 'Low Stock' : 'In Stock'}
+                        {isOutOfStock ? 'Out' : isLowStock ? 'Low' : 'Stock'}
                       </span>
                     </div>
                   </div>

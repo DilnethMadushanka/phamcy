@@ -62,18 +62,31 @@ const MainLayout = () => {
 
 const StaffLayout = () => {
   const { user, logout } = useAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
       {/* Top Header */}
-      <header className="bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-950 text-white border-b border-blue-800/60 px-6 py-3.5 flex items-center justify-between sticky top-0 z-40 shadow-md">
-        <div className="flex items-center space-x-4">
+      <header className="bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-950 text-white border-b border-blue-800/60 px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-40 shadow-md">
+        <div className="flex items-center space-x-3">
+          {/* Mobile Menu Hamburger Toggle */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all cursor-pointer"
+            aria-label="Toggle Staff Navigation"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d={mobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+            </svg>
+          </button>
+
           <Link to="/dashboard" className="flex items-center space-x-2 group">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center font-black text-white text-lg shadow-md group-hover:scale-105 transition-transform">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center font-black text-white text-base sm:text-lg shadow-md group-hover:scale-105 transition-transform">
               F
             </div>
             <div>
-              <span className="text-base font-black tracking-wider text-white block leading-none">FOUAD PHARMACY</span>
-              <span className="text-[10px] text-blue-200 font-semibold tracking-widest uppercase">Admin Workspace</span>
+              <span className="text-sm sm:text-base font-black tracking-wider text-white block leading-none">FOUAD PHARMACY</span>
+              <span className="text-[9px] sm:text-[10px] text-blue-200 font-semibold tracking-widest uppercase">Admin Workspace</span>
             </div>
           </Link>
           <span className="hidden sm:inline-block text-xs bg-blue-500/20 text-blue-200 px-3 py-1 rounded-full font-bold border border-blue-400/30">
@@ -81,21 +94,22 @@ const StaffLayout = () => {
           </span>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-4">
           <Link
             to="/store"
-            className="text-xs bg-white/10 hover:bg-white/20 text-white px-3.5 py-1.5 rounded-xl font-bold transition-all border border-white/20 hidden sm:flex items-center gap-1.5"
+            className="text-[11px] sm:text-xs bg-white/10 hover:bg-white/20 text-white px-3 sm:px-3.5 py-1.5 rounded-xl font-bold transition-all border border-white/20 flex items-center gap-1.5"
           >
-            <span>🛍️ View Store Front</span>
+            <span>🛍️</span>
+            <span className="hidden sm:inline">View Store Front</span>
           </Link>
-          <div className="flex items-center space-x-3 border-l border-blue-800/80 pl-4">
+          <div className="flex items-center space-x-2 sm:space-x-3 border-l border-blue-800/80 pl-2 sm:pl-4">
             <div className="text-right hidden md:block">
               <p className="text-xs font-extrabold text-white leading-tight">{user?.name}</p>
               <p className="text-[10px] text-blue-300 font-medium">{user?.email}</p>
             </div>
             <button
               onClick={logout}
-              className="text-xs bg-rose-500/20 hover:bg-rose-600 text-rose-200 hover:text-white px-3 py-1.5 rounded-xl border border-rose-400/30 transition-all font-bold cursor-pointer"
+              className="text-[11px] sm:text-xs bg-rose-500/20 hover:bg-rose-600 text-rose-200 hover:text-white px-2.5 sm:px-3 py-1.5 rounded-xl border border-rose-400/30 transition-all font-bold cursor-pointer"
             >
               Logout
             </button>
@@ -103,10 +117,38 @@ const StaffLayout = () => {
         </div>
       </header>
 
+      {/* Mobile Drawer Overlay for Staff Navigation */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-50 md:hidden flex">
+          <div
+            className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs transition-opacity"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div className="relative flex-1 flex flex-col max-w-xs w-full bg-white shadow-2xl z-50">
+            <div className="p-4 border-b border-blue-100 flex items-center justify-between bg-gradient-to-r from-blue-900 to-indigo-900 text-white">
+              <span className="text-xs font-extrabold tracking-wider uppercase">Staff Workspace Menu</span>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="p-1 rounded-lg hover:bg-white/20 text-white"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex-1 overflow-y-auto">
+              <Sidebar onClose={() => setMobileMenuOpen(false)} />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main Workspace with Sidebar & Content */}
       <div className="flex-1 flex overflow-hidden">
-        <Sidebar />
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto max-w-7xl mx-auto w-full">
+        <div className="hidden md:flex">
+          <Sidebar />
+        </div>
+        <main className="flex-1 p-3 sm:p-6 lg:p-8 overflow-y-auto max-w-7xl mx-auto w-full">
           <Outlet />
         </main>
       </div>

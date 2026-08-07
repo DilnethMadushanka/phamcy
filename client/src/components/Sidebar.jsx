@@ -18,7 +18,7 @@ import {
   MessageSquare
 } from 'lucide-react';
 
-const Sidebar = () => {
+const Sidebar = ({ onClose }) => {
   const { user } = useAuth();
   const role = user?.role || 'Customer';
 
@@ -100,7 +100,7 @@ const Sidebar = () => {
   const navItems = role === 'Customer' ? customerNavItems : staffNavItems.filter(item => item.roles.includes(role));
 
   return (
-    <aside className="w-64 bg-white/95 backdrop-blur-xl text-slate-800 flex flex-col justify-between hidden md:flex shrink-0 min-h-[calc(100vh-4.5rem)] border-r border-blue-100/80 font-sans transition-all duration-300 shadow-sm shadow-blue-900/5">
+    <aside className="w-64 bg-white/95 backdrop-blur-xl text-slate-800 flex flex-col justify-between shrink-0 min-h-[calc(100vh-4.5rem)] border-r border-blue-100/80 font-sans transition-all duration-300 shadow-sm shadow-blue-900/5">
       <div className="py-6 px-4 space-y-5">
         {/* Header */}
         <div className="px-3 pb-4 border-b border-blue-100/80 space-y-1">
@@ -123,6 +123,7 @@ const Sidebar = () => {
               <NavLink
                 key={item.path}
                 to={item.path}
+                onClick={() => { if (onClose) onClose(); }}
                 className={({ isActive }) =>
                   `flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-bold text-xs transition-all duration-200 group ${
                     isActive
