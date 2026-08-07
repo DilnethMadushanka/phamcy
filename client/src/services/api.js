@@ -42,14 +42,21 @@ const parseResponse = async (res) => {
     if (res.status === 401) {
       localStorage.removeItem('pharmacy_token');
     }
-    // Handle HTML 405/404 error responses gracefully
-    if (res.status === 405 || res.status === 404 || text.includes('405 Not Allowed') || text.includes('<!DOCTYPE')) {
+    // Handle HTML 405/404 error responses gracefully (e.g. GitHub Pages / static host)
+    const isHtml = text.trim().startsWith('<') || text.includes('<html') || text.includes('<!DOCTYPE') || text.includes('405 Not Allowed');
+    if (res.status === 405 || res.status === 404 || isHtml) {
       const err = new Error('Static Host Demo Mode (No backend endpoint)');
       err.isStaticHostError = true;
       throw err;
     }
-    const errorMsg = data.message || data.error || `Request failed with status ${res.status}`;
-    throw new Error(errorMsg);
+    let errorMsg = data.message || data.error || `Request failed with status ${res.status}`;
+    if (typeof errorMsg === 'string' && (errorMsg.includes('<') || errorMsg.includes('html>'))) {
+      errorMsg = `Server error (${res.status})`;
+    }
+    const error = new Error(errorMsg);
+    error.status = res.status;
+    error.data = data;
+    throw error;
   }
   return data;
 };
@@ -129,39 +136,76 @@ export const api = {
   },
 
   forgotPassword: async (email, newPassword) => {
-    const res = await fetch(`${API_BASE}/auth/forgot-password`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, newPassword }),
-    });
-    return parseResponse(res);
+    try {
+      const res = await fetch(`${API_BASE}/auth/forgot-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, newPassword }),
+      });
+      return await parseResponse(res);
+    } catch (err) {
+      if (err.isStaticHostError || err.message?.includes('Failed to fetch') || err.message?.includes('405')) {
+        return { message: 'Demo mode: Password reset successfully' };
+      }
+      throw err;
+    }
   },
 
   sendOtp: async (email, type) => {
-    const res = await fetch(`${API_BASE}/auth/send-otp`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, type }),
-    });
-    return parseResponse(res);
+    try {
+      const res = await fetch(`${API_BASE}/auth/send-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, type }),
+      });
+      return await parseResponse(res);
+    } catch (err) {
+      if (err.isStaticHostError || err.message?.includes('Failed to fetch') || err.message?.includes('405')) {
+        return { message: 'Demo OTP sent to ' + email, devOtp: '123456' };
+      }
+      throw err;
+    }
   },
 
   verifyOtpRegister: async (data) => {
-    const res = await fetch(`${API_BASE}/auth/verify-otp-register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    return parseResponse(res);
+    try {
+      const res = await fetch(`${API_BASE}/auth/verify-otp-register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      return await parseResponse(res);
+    } catch (err) {
+      if (err.isStaticHostError || err.message?.includes('Failed to fetch') || err.message?.includes('405')) {
+        const user = {
+          id: Date.now(),
+          name: data.name || 'New Patient',
+          email: data.email || 'patient@pharmacy.com',
+          role: 'Customer',
+          phone: data.phone || '0770000000',
+        };
+        const token = 'demo_token_' + Date.now();
+        saveDemoUser(user);
+        return { token, user, message: 'OTP verified successfully (Demo Mode)' };
+      }
+      throw err;
+    }
   },
 
   verifyOtpResetPassword: async (data) => {
-    const res = await fetch(`${API_BASE}/auth/verify-otp-reset-password`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    return parseResponse(res);
+    try {
+      const res = await fetch(`${API_BASE}/auth/verify-otp-reset-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      return await parseResponse(res);
+    } catch (err) {
+      if (err.isStaticHostError || err.message?.includes('Failed to fetch') || err.message?.includes('405')) {
+        return { message: 'OTP verified successfully (Demo Mode)' };
+      }
+      throw err;
+    }
   },
 
   changePassword: async (currentPassword, newPassword) => {

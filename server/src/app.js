@@ -35,6 +35,11 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/support', supportRoutes);
 app.use('/api/newsletter', newsletterRoutes);
 
+// Root welcome endpoint
+app.get('/', (req, res) => {
+  res.json({ status: 'OK', message: '🚀 Pharmacy Management API Backend is running', healthCheck: '/api/health' });
+});
+
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Pharmacy Management API is active' });
 });
